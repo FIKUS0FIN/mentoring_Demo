@@ -1,0 +1,137 @@
+# tomcat.yml
+---
+- name: Install tomcat playbook
+  hosts: tomcat
+  remote_user: ubuntu
+  vars:
+    admin_user: "admin"
+    admin_password: "admin"
+    SERVER_NAME: "{{ ansible_host }}"
+    PORT_NUMBER: "8080"
+    ZABBIX_SERVER: "10.10.10.192"
+    ZABBIX_USER: "Admin"
+    ZABBIX_PASS: "zabbix"
+    ZABBIX_REST_API: "http://10.10.10.192/zabbix/api_jsonrpc.php"
+
+
+  tasks:
+    - name: Install tomcat packages
+      apt: name={{ item }} state=present update_cache=yes
+      with_items:
+        - tomcat7
+        - tomcat7-admin
+
+    - name: Copy tomcat server config file
+      template: src=files/server.xml.j2 dest=/etc/tomcat7/server.xml
+      notify: Restart tomcat
+
+    - name: Copy tomcat users config file
+      template: src=files/tomcat-users.xml.j2 dest=/etc/tomcat7/tomcat-users.xml
+      notify: Restart tomcat
+
+    - meta: flush_handlers
+
+    - name: Ensure tomcat is started and enabled
+      service: name=tomcat7 state=started enabled=yes
+
+    - name: Check if tomcat manager is up
+      uri: url="http://{{ ansible_host }}:8080/manager/html" user={{ admin_user }} password={{ admin_password }}
+      register: result
+      until: result.status == 200
+      retries: 10
+
+    - name: Update apt cache
+      apt: update_cache=yes
+      become: true
+
+    - name: Install required packages
+      apt: name=nginx
+      become: true
+
+    - name: copy nginix support files
+      template: src=files/{{ item }}.conf.j2 dest=/etc/nginx/conf.d/{{ item }}.conf
+      with_items:
+        - local
+      become: true
+      notify: Restart nginx
+
+    - meta: flush_handlers
+
+    - name: Ensure nginx is started and enabled
+      service: name=nginx state=started enabled=yes
+
+    - name: download Zabix agent
+      shell: wget http://repo.zabbix.com/zabbix/3.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.2-1+xenial_all.deb
+
+    - name: install all.deb
+      shell: dpkg -i zabbix*.deb
+      become: true
+
+    - name: update_cahe
+      apt: update_cache=yes
+      become: true
+
+    - name: install latest zabix agent
+      apt: name=zabbix-agent
+      become: true
+
+    - name: templeate for zabbix-agent
+      template: src=files/zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf
+      notify: Restart zabbix-agent
+
+    - name: Ensure zabbix is started and enabled
+      service: name=zabbix-agent state=started enabled=yes
+
+    - meta: flush_handlers
+
+#    - name: run_level auto add zabbix host
+#      template: src=files/add_monitor.sh.j2 dest=/usr/local/bin/add_monitor.sh
+
+#    - name: run_level auto dell zabbix host
+#      template: src=files/dell_monitor.sh.j2 dest=/usr/local/bin/dell_monitor.sh
+#      become: true
+
+#    - name: Copy unit to systemd
+#      copy: src=files/dell_monitor.service dest=/etc/systemd/system/add-dell_monitor.service
+#      become: true
+
+#    - name: Change permissions to add_monitor.sh
+#      shell: chmod 744 /usr/local/bin/add_monitor.sh
+#      become: true
+
+#    - name: Change permissions to dell_monitor.sh
+#      shell: chmod 744 /usr/local/bin/dell_monitor.sh
+#      become: true
+
+#    - name: Change permissions to /etc/systemd/system/add-dell_monitor.service
+#      shell: chmod 664 /etc/systemd/system/add-dell_monitor.service
+#      become: true
+
+#    - name: Reload demon systemctl
+#      shell: systemctl daemon-reload
+#      become: true
+
+#    - name: Enable systemctl servide dell_monitor
+#      shell: systemctl enable add-dell_monitor.service
+#      become: true
+
+#    - name: Reload demon systemctl _2
+#      shell: systemctl daemon-reload
+#      become: true
+
+#    - name: Enable systemctl servide dell_monitor _2
+#      shell: systemctl enable add-dell_monitor.service
+#      become: true
+
+#    - mane: start add-dell_monitor demon
+#      shell: systemctl start add-dell_monitor.service
+
+  handlers:
+    - name: Restart tomcat
+      service: name=tomcat7 state=restarted
+
+    - name: Restart nginx
+      service: name=nginx state=restarted
+
+    - name: Restart zabbix-agent
+      service: name=zabbix-agent state=restarted
