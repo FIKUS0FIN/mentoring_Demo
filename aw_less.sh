@@ -36,3 +36,20 @@ kill_aws ${KILL}
 
 echo "waiting for provisioning on box "
 sleep 60
+
+
+############
+if [[ ${TAG} == "TOMCAT" ]]; then
+  sed -i "s/TOMCAT/${AWS_TAG}/" jenkins/inventory
+  sed -i "s/AWS_IP/${AWS_IP}/" jenkins/inventory
+  cd jenkins
+  #statements
+elif [[ ${TAG} == "NGINX" ]]; then
+  sed -i "s/NGINX/${AWS_TAG}/" jenkins/inventory
+  sed -i "s/AWS_IP/${AWS_IP}/" jenkins/inventory
+  cd jenkins
+else
+  echo "not deffined tag "
+  exit 1
+  #statements
+fi

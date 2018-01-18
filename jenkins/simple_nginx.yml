@@ -1,0 +1,63 @@
+# nginx.yml
+---
+- name: Install nginx playbook
+  hosts: nginx
+  remote_user: ubuntu
+  vars:
+    admin_user: "admin"
+    admin_password: "admin"
+    SERVER_NAME: "{{ ansible_host }}"
+    ZABBIX_SERVER: "10.10.10.192"
+  tasks:
+    - name: Install nginx from apt
+      apt: name={{ item }} state=present update_cache=yes
+      with_items:
+        - nginx
+        - unzip
+        - zip
+        - htop
+      become: true
+
+    - name: Check if nginx  is up
+      uri: url="http://{{ ansible_host }}:80"
+      register: result
+      until: result.status == 200
+      retries: 3
+
+    - name: download Zabix agent
+      shell: wget http://repo.zabbix.com/zabbix/3.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.2-1+xenial_all.deb
+
+    - name: install all.deb
+      shell: dpkg -i zabbix*.deb
+      become: true
+
+    - name: update_cahe
+      apt: update_cache=yes
+      become: true
+
+    - name: install latest zabix agent
+      apt: name=zabbix-agent
+      become: true
+
+    - name: templeate for zabbix-agent
+      template: src=files/zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf
+      notify: Restart zabbix-agent
+
+    - name: Ensure zabbix is started and enabled
+      service: name=zabbix-agent state=started enabled=yes
+
+    - meta: flush_handlers
+
+    - name: copy content for Nginx
+      copy: src=files/nginx_data.zip dest=/var/www/html/nginx_data.zip
+      become: true
+
+    - name: Extract nginx_data.zip into /var/www/html
+      unarchive:
+        src: files/nginx_data.zip
+        dest: /var/www/html/
+
+      
+  handlers:
+    - name: Restart zabbix-agent
+      service: name=zabbix-agent state=restarted

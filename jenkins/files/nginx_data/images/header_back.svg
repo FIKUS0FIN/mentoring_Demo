@@ -1,0 +1,55 @@
+<svg width="789px" height="306px" viewBox="0 0 789 306" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.1351982%" id="linearGradient-1">
+            <stop stop-color="#000000" offset="0%"></stop>
+            <stop stop-color="#204349" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="50%" cy="0%" fx="50%" fy="0%" r="63.7825391%" gradientTransform="translate(0.500000,0.000000),scale(0.501651,1.000000),rotate(90.949336),translate(-0.500000,-0.000000)" id="radialGradient-2">
+            <stop stop-color="#000000" offset="0%"></stop>
+            <stop stop-color="#05414A" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="49.5162612%" cy="34.0348818%" fx="49.5162612%" fy="34.0348818%" r="117.753922%" gradientTransform="translate(0.495163,0.340349),scale(0.537699,1.000000),rotate(92.633572),scale(1.000000,2.050805),translate(-0.495163,-0.340349)" id="radialGradient-3">
+            <stop stop-color="#EA4410" offset="0%"></stop>
+            <stop stop-color="#EA4714" offset="40.3034953%"></stop>
+            <stop stop-color="#D8D8D8" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="50%" cy="0%" fx="50%" fy="0%" r="34.4500104%" gradientTransform="translate(0.500000,0.000000),scale(0.498097,1.000000),rotate(90.000000),translate(-0.500000,-0.000000)" id="radialGradient-4">
+            <stop stop-color="#FE9B47" offset="0%"></stop>
+            <stop stop-color="#FC712C" offset="0%"></stop>
+            <stop stop-color="#FC6222" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="-215.542846%" y1="84.3821242%" x2="54.9442881%" y2="57.2825233%" id="linearGradient-5">
+            <stop stop-color="#846565" offset="0%"></stop>
+            <stop stop-color="#1B2D32" offset="94.3918148%"></stop>
+            <stop stop-color="#152A2F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-215.542846%" y1="84.3821242%" x2="54.9442881%" y2="57.2825233%" id="linearGradient-6">
+            <stop stop-color="#846565" offset="0%"></stop>
+            <stop stop-color="#1B2D32" offset="94.3261928%"></stop>
+            <stop stop-color="#152A2F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#013741" offset="0%"></stop>
+            <stop stop-color="#1B4650" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard">
+            <polygon id="Triangle-Copy-4" fill="url(#linearGradient-1)" opacity="0.998358243" points="396 419.732741 0.00298869221 1 789.035243 1"></polygon>
+            <polygon id="Triangle-Copy-2" fill="url(#radialGradient-2)" points="395.645132 199.653637 199 1 595 1"></polygon>
+            <polygon id="Triangle" fill="url(#radialGradient-3)" points="187 44.0158833 147 1 227 1"></polygon>
+            <polygon id="Triangle-Copy-3" fill="url(#radialGradient-3)" points="605 44.0158833 565 1 645 1"></polygon>
+            <g id="Зубки" transform="translate(565.000000, 1.000000)"></g>
+            <polygon id="Triangle-Copy" fill="url(#radialGradient-4)" points="395.927788 142.459621 254 1 538 1"></polygon>
+            <polygon id="Path" fill="#FFFFFF" points="396 49.5756067 348 1 443.694131 1"></polygon>
+            <polygon id="Triangle-2-Copy-3" fill="url(#linearGradient-5)" points="730.269537 63.6108775 788.836843 1 789 121.499708"></polygon>
+            <polygon id="Triangle-2" fill="#D8D8D8" points="754.236792 38.0072256 789.01075 1 789.10718 72.4997077"></polygon>
+            <polygon id="Triangle-2-Copy-2" fill="url(#linearGradient-6)" transform="translate(29.500000, 61.249854) scale(-1, 1) translate(-29.500000, -61.249854) " points="0 63.3689244 58.8368431 1 59 121.499708"></polygon>
+            <polygon id="Triangle-3-Copy" fill="url(#linearGradient-7)" points="730.441146 61.9448957 979 307.361718 499 307.361718"></polygon>
+            <polygon id="Triangle-2-Copy" fill="#D8D8D8" transform="translate(15.500000, 35.500000) scale(-1, 1) translate(-15.500000, -35.500000) " points="-2 36.7080192 32.9035569 0 33 71"></polygon>
+            <polygon id="Triangle-3" fill="url(#linearGradient-7)" points="57.7560681 61.0117914 289 306 -185 306"></polygon>
+        </g>
+    </g>
+</svg>
